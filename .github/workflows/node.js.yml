@@ -10,9 +10,6 @@ jobs:
   security_tests:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: 20
     steps:
     - name: Clone the Github repository on the machine
       uses: actions/checkout@v4
@@ -24,10 +21,10 @@ jobs:
         cache: 'npm'
       
     - name: Install dependencies on the machine
-      uses: npm install
+      run: npm install
 
     - name: Run npm security tests
-      uses: npm audit
+      run: npm audit
 
   build:
     runs-on: ubuntu-latest
