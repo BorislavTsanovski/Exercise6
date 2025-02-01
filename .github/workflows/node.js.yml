@@ -32,6 +32,8 @@ jobs:
 
     strategy:
       fail-fast: true
+#      matrix:
+#        node-version: [18.x, 20.x, 22.x]
 
     steps:
     - name: Clone repo on machine
@@ -57,3 +59,15 @@ jobs:
       with:
         name: test-results
         path: test-output.log
+
+#   https://github.com/JorgeLNJunior/render-deploy
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v3
+        - uses: JorgeLNJunior/render-deploy@v1.4.4
+          with:
+            service_id: ${{ secrets.EXERCISE6_RENDER_SERVICE_ID }}
+            api_key: ${{ secrets.EXERCISE6_RENDER_API_KEY }}
+            wait_deploy: true 
